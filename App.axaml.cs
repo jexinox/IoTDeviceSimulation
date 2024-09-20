@@ -5,7 +5,6 @@ using Avalonia.Markup.Xaml;
 using IoTDeviceSimulation.MainWindow;
 using IoTDeviceSimulation.Metric;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace IoTDeviceSimulation;
 
@@ -23,8 +22,6 @@ public class App : Application
             .AddSingleton<MetricViewModel>()
             .AddSingleton<MainWindowViewModel>()
             .AddSingleton<MainWindowView>()
-            .AddOptions()
-            .AddSingleton<IOptionsFactory<MetricUpdaterOptions>, MetricUpdaterOptionsFactory>()
             .AddSingleton<MetricUpdaterViewModel>()
             .AddSingleton<MetricUpdater>();
             

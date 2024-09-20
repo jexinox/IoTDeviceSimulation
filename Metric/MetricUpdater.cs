@@ -1,11 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 
 namespace IoTDeviceSimulation.Metric;
 
-public class MetricUpdater(MetricViewModel metricViewModel, IOptionsMonitor<MetricUpdaterOptions> options)
+public class MetricUpdater(MetricViewModel metricViewModel,  MetricUpdaterViewModel updaterViewModel)
 {
     public Task StartMetricFieldUpdateAsync(CancellationToken cancellationToken)
     {
@@ -17,7 +16,7 @@ public class MetricUpdater(MetricViewModel metricViewModel, IOptionsMonitor<Metr
         while (!cancellationToken.IsCancellationRequested) 
         {
             await Task.Delay(
-                TimeSpan.FromSeconds(options.CurrentValue.DelayBetweenGenerationsInSeconds), cancellationToken);
+                TimeSpan.FromSeconds(updaterViewModel.DelayBetweenUpdatesInSeconds), cancellationToken);
             
             metricViewModel.Value = Random.Shared.NextDouble();
         }
