@@ -5,19 +5,20 @@ using Microsoft.Extensions.Options;
 
 namespace IoTDeviceSimulation.Metric;
 
-public class MetricGenerator(MetricViewModel metricViewModel, IOptionsMonitor<MetricGeneratorOptions> options)
+public class MetricUpdater(MetricViewModel metricViewModel, IOptionsMonitor<MetricUpdaterOptions> options)
 {
-    public Task StartGeneration(CancellationToken cancellationToken)
+    public Task StartUpdate(CancellationToken cancellationToken)
     {
-        return Task.Run(() => GenerationLoop(cancellationToken), cancellationToken);
+        return Task.Run(() => Update(cancellationToken), cancellationToken);
     }
 
-    private async Task GenerationLoop(CancellationToken cancellationToken)
+    private async Task Update(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested) 
         {
             await Task.Delay(
                 TimeSpan.FromSeconds(options.CurrentValue.DelayBetweenGenerationsInSeconds), cancellationToken);
+            
             metricViewModel.Value = Random.Shared.NextDouble();
         }
     }

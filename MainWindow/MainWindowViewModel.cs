@@ -5,9 +5,9 @@ namespace IoTDeviceSimulation.MainWindow;
 
 public class MainWindowViewModel(
     MetricViewModel metricViewModel,
-    MetricGeneratorViewModel metricGeneratorViewModel) : ReactiveObject
+    MetricUpdaterViewModel metricUpdaterViewModel) : ReactiveObject
 {
     public MetricViewModel MetricViewModel { get; } = metricViewModel;
 
-    public MetricGeneratorViewModel MetricGeneratorViewModel { get; } = metricGeneratorViewModel;
+    public MetricUpdaterViewModel MetricUpdaterViewModel { get; } = metricUpdaterViewModel;
 }

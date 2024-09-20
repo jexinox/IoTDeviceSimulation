@@ -24,9 +24,9 @@ public class App : Application
             .AddSingleton<MainWindowViewModel>()
             .AddSingleton<MainWindowView>()
             .AddOptions()
-            .AddSingleton<IOptionsFactory<MetricGeneratorOptions>, MetricGeneratorOptionsFactory>()
-            .AddSingleton<MetricGeneratorViewModel>()
-            .AddSingleton<MetricGenerator>();
+            .AddSingleton<IOptionsFactory<MetricUpdaterOptions>, MetricUpdaterOptionsFactory>()
+            .AddSingleton<MetricUpdaterViewModel>()
+            .AddSingleton<MetricUpdater>();
             
         var serviceProvider = serviceCollection.BuildServiceProvider(
             new ServiceProviderOptions { ValidateOnBuild = true, ValidateScopes = true});
@@ -40,7 +40,7 @@ public class App : Application
             desktop.Exit += (_, _) => cts.Cancel();
         }
         
-        serviceProvider.GetRequiredService<MetricGenerator>().StartGeneration(cts.Token);
+        serviceProvider.GetRequiredService<MetricUpdater>().StartUpdate(cts.Token);
 
         base.OnFrameworkInitializationCompleted();
     }
