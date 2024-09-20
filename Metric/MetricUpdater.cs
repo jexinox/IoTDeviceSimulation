@@ -7,12 +7,12 @@ namespace IoTDeviceSimulation.Metric;
 
 public class MetricUpdater(MetricViewModel metricViewModel, IOptionsMonitor<MetricUpdaterOptions> options)
 {
-    public Task StartUpdate(CancellationToken cancellationToken)
+    public Task StartMetricFieldUpdateAsync(CancellationToken cancellationToken)
     {
-        return Task.Run(() => Update(cancellationToken), cancellationToken);
+        return Task.Run(() => UpdateMetricFieldAsync(cancellationToken), cancellationToken);
     }
 
-    private async Task Update(CancellationToken cancellationToken)
+    private async Task UpdateMetricFieldAsync(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested) 
         {

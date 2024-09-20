@@ -40,7 +40,7 @@ public class App : Application
             desktop.Exit += (_, _) => cts.Cancel();
         }
         
-        serviceProvider.GetRequiredService<MetricUpdater>().StartUpdate(cts.Token);
+        serviceProvider.GetRequiredService<MetricUpdater>().StartMetricFieldUpdateAsync(cts.Token);
 
         base.OnFrameworkInitializationCompleted();
     }
