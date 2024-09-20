@@ -1,0 +1,3 @@
+namespace IoTDeviceSimulation.Metric;
+
+public record MetricGeneratorOptions(int DelayBetweenGenerationsInSeconds);

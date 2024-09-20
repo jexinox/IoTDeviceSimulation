@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:IoTDeviceSimulation"
+        x:Class="IoTDeviceSimulation.MainWindow.MainWindowView"
+        Title="IoTDeviceSimulation"
+        x:DataType="vm:MainWindowViewModel">
+        
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
+                <TextBlock Grid.Column="0" Grid.Row="1" DataContext="{Binding MetricGeneratorViewModel}" Text="{Binding DelayBetweenGenerationsInSeconds}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" DataContext="{Binding MetricViewModel}" Text="{Binding Value}" />
+                <TextBox Grid.Column="2" Grid.Row="0">Manual mode handle</TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1">Mode selection</TextBox>
+                <TextBox Grid.Column="2" Grid.Row="2">Automatic mode setup</TextBox>
+        </Grid>
+</Window>
