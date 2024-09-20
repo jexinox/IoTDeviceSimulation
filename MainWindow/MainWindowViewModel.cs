@@ -1,7 +1,7 @@
 using IoTDeviceSimulation.Metric;
 using ReactiveUI;
 
-namespace IoTDeviceSimulation;
+namespace IoTDeviceSimulation.MainWindow;
 
 public class MainWindowViewModel(
     MetricViewModel metricViewModel,
