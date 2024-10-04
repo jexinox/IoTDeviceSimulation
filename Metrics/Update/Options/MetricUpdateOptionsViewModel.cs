@@ -1,8 +1,8 @@
 using System;
-using ReactiveUI;
 using System.Reactive.Linq;
+using ReactiveUI;
 
-namespace IoTDeviceSimulation.Metrics;
+namespace IoTDeviceSimulation.Metrics.Update.Options;
 
 public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUpdateOptions>
 {

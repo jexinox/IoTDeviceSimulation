@@ -1,9 +1,10 @@
 using System;
 using System.Reactive.Linq;
 using System.Threading;
+using IoTDeviceSimulation.Metrics.Update.Options;
 using Microsoft.Extensions.Options;
 
-namespace IoTDeviceSimulation.Metrics;
+namespace IoTDeviceSimulation.Metrics.Update;
 
 public class MetricUpdater(
     IOptions<MetricUpdateOptions> options, CancellationTokenSource cancellationTokenSource) : IObservable<Metric>

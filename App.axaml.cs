@@ -5,6 +5,9 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using IoTDeviceSimulation.MainWindow;
 using IoTDeviceSimulation.Metrics;
+using IoTDeviceSimulation.Metrics.Update;
+using IoTDeviceSimulation.Metrics.Update.Options;
+using IoTDeviceSimulation.Subscribers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 

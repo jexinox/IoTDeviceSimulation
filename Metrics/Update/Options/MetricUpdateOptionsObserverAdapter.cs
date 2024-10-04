@@ -2,7 +2,7 @@ using System;
 using System.Reactive;
 using Microsoft.Extensions.Options;
 
-namespace IoTDeviceSimulation.Metrics;
+namespace IoTDeviceSimulation.Metrics.Update.Options;
 
 public class MetricUpdateOptionsObserverAdapter : IOptions<MetricUpdateOptions>, IObserver<MetricUpdateOptions>
 {

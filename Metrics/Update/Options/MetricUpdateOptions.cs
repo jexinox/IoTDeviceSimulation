@@ -1,6 +1,6 @@
 using System;
 
-namespace IoTDeviceSimulation.Metrics;
+namespace IoTDeviceSimulation.Metrics.Update.Options;
 
 public record MetricUpdateOptions
 {
