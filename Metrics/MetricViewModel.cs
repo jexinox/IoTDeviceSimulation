@@ -6,9 +6,11 @@ namespace IoTDeviceSimulation.Metrics;
 
 public class MetricViewModel : ReactiveObject, IObserver<Metric>
 {
+    public const double DefaultMetricValue = 1;
+    
     private readonly Lazy<IObserver<Metric>> _internalObserver;
 
-    private double _value;
+    private double _value = DefaultMetricValue;
     
     public MetricViewModel()
     {

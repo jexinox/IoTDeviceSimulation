@@ -13,8 +13,7 @@ public class MetricUpdateOptionsObserverAdapter : IOptions<MetricUpdateOptions>,
         _internalObserver = new(() => Observer.Create<MetricUpdateOptions>(options => Value = options));
     }
 
-    public MetricUpdateOptions Value { get; private set; } = 
-        new(MetricUpdateOptionsViewModel.DefaultSecondsBetweenUpdates);
+    public MetricUpdateOptions Value { get; private set; } = MetricUpdateOptions.Default;
     
     public void OnCompleted() => _internalObserver.Value.OnCompleted();
 

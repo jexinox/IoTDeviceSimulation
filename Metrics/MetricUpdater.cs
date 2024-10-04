@@ -8,10 +8,8 @@ namespace IoTDeviceSimulation.Metrics;
 public class MetricUpdater(
     IOptions<MetricUpdateOptions> options, CancellationTokenSource cancellationTokenSource) : IObservable<Metric>
 {
-    private const double DefaultMetricValue = 1;
-    
     private readonly Lazy<IObservable<Metric>> _internalObservable = 
-        new(() => CreateInternalObservable(new(new(DefaultMetricValue), options, cancellationTokenSource.Token)));
+        new(() => CreateInternalObservable(new(Metric.Default, options, cancellationTokenSource.Token)));
 
     public IDisposable Subscribe(IObserver<Metric> observer) => _internalObservable.Value.Subscribe(observer);
 
