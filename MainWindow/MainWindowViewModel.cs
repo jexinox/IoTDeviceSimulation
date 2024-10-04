@@ -1,13 +1,13 @@
-using IoTDeviceSimulation.Metric;
+using IoTDeviceSimulation.Metrics;
 using ReactiveUI;
 
 namespace IoTDeviceSimulation.MainWindow;
 
 public class MainWindowViewModel(
     MetricViewModel metricViewModel,
-    MetricUpdaterViewModel metricUpdaterViewModel) : ReactiveObject
+    MetricUpdateOptionsViewModel metricUpdateOptionsViewModel) : ReactiveObject
 {
     public MetricViewModel MetricViewModel { get; } = metricViewModel;
 
-    public MetricUpdaterViewModel MetricUpdaterViewModel { get; } = metricUpdaterViewModel;
+    public MetricUpdateOptionsViewModel MetricUpdateOptionsViewModel { get; } = metricUpdateOptionsViewModel;
 }

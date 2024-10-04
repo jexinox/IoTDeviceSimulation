@@ -6,7 +6,7 @@
         x:DataType="mainWindow:MainWindowViewModel">
         
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-                <TextBox Grid.Column="0" Grid.Row="1" DataContext="{Binding MetricUpdaterViewModel}" Text="{Binding DelayBetweenUpdatesInSeconds}" />
+                <TextBox Grid.Column="0" Grid.Row="1" DataContext="{Binding MetricUpdateOptionsViewModel}" Text="{Binding SecondsBetweenUpdates}" />
                 <TextBlock Grid.Column="1" Grid.Row="1" DataContext="{Binding MetricViewModel}" Text="{Binding Value}" />
                 <TextBox Grid.Column="2" Grid.Row="0">Manual mode handle</TextBox>
                 <TextBox Grid.Column="2" Grid.Row="1">Mode selection</TextBox>
