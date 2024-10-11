@@ -5,11 +5,10 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using IoTDeviceSimulation.MainWindow;
 using IoTDeviceSimulation.Metrics;
+using IoTDeviceSimulation.Metrics.Generation;
 using IoTDeviceSimulation.Metrics.Update;
 using IoTDeviceSimulation.Metrics.Update.Options;
-using IoTDeviceSimulation.Subscribers;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace IoTDeviceSimulation;
 
@@ -31,13 +30,16 @@ public class App : Application
             .AddSingleton<IObservable<MetricUpdateOptions>>(
                 sp => sp.GetRequiredService<MetricUpdateOptionsViewModel>())
             
-            .AddSingleton<MetricUpdateOptionsObserverAdapter>()
-            .AddSingleton<IOptions<MetricUpdateOptions>>(
-                sp => sp.GetRequiredService<MetricUpdateOptionsObserverAdapter>())
+            .AddSingleton<MetricUpdateOptionsProvider>()
+            .AddSingleton<IMetricUpdateOptionsProvider>(
+                sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
             .AddSingleton<IObserver<MetricUpdateOptions>>(
-                sp => sp.GetRequiredService<MetricUpdateOptionsObserverAdapter>())
+                sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
             
             .AddSingleton<MetricViewModel>()
+            .AddSingleton<Random>()
+            .AddSingleton<IMetricGenerator, RandomMetricGenerator>()
+            .AddSingleton<IMetricGeneratorProvider, MetricGeneratorProvider>()
             .AddSingleton<IObserver<Metric>>(sp => sp.GetRequiredService<MetricViewModel>())
             .AddSingleton<IObservable<Metric>, MetricUpdater>()
             

@@ -1,4 +1,4 @@
-namespace IoTDeviceSimulation.Subscribers;
+namespace IoTDeviceSimulation.Metrics;
 
 public interface ISubscriber
 {

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using IoTDeviceSimulation.Metrics;
 
-namespace IoTDeviceSimulation.Subscribers;
+namespace IoTDeviceSimulation.Metrics;
 
 public class DefaultSubscriber<T>(IEnumerable<IObserver<T>> observers, IEnumerable<IObservable<T>> observables) : ISubscriber
 {
