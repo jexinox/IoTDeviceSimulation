@@ -1,18 +1,19 @@
 using System;
 using System.Reactive.Linq;
 using System.Threading;
-using IoTDeviceSimulation.Metrics.Generation;
+using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Options;
 
 namespace IoTDeviceSimulation.Metrics.Update;
 
 public class MetricUpdater(
+    IDefaultsProvider<Metric> metricDefaultsProvider,
     IMetricGeneratorProvider metricGenerator,
     IMetricUpdateOptionsProvider optionsProvider,
     CancellationTokenSource cancellationTokenSource) : IObservable<Metric>
 {
     private readonly Lazy<IObservable<Metric>> _internalObservable = 
-        new(() => CreateInternalObservable(new(Metric.Default, optionsProvider, metricGenerator, cancellationTokenSource.Token)));
+        new(() => CreateInternalObservable(new(metricDefaultsProvider.Get(), optionsProvider, metricGenerator, cancellationTokenSource.Token)));
 
     public IDisposable Subscribe(IObserver<Metric> observer) => _internalObservable.Value.Subscribe(observer);
 

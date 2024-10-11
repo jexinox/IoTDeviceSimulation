@@ -6,10 +6,11 @@ namespace IoTDeviceSimulation.Metrics.Update.Options;
 public class MetricUpdateOptionsProvider : IMetricUpdateOptionsProvider, IObserver<MetricUpdateOptions>
 {
     private readonly Lazy<IObserver<MetricUpdateOptions>> _internalObserver;
-    private MetricUpdateOptions _value = MetricUpdateOptions.Default;
+    private MetricUpdateOptions _value;
 
-    public MetricUpdateOptionsProvider()
+    public MetricUpdateOptionsProvider(IDefaultsProvider<MetricUpdateOptions> defaultOptionsProvider)
     {
+        _value = defaultOptionsProvider.Get();
         _internalObserver = new(() => Observer.Create<MetricUpdateOptions>(options => _value = options));
     }
     

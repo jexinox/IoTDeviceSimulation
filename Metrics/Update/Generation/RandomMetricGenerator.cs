@@ -1,6 +1,6 @@
 using System;
 
-namespace IoTDeviceSimulation.Metrics.Generation;
+namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
 public class RandomMetricGenerator(Random random) : IMetricGenerator
 {

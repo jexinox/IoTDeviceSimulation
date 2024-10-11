@@ -6,14 +6,13 @@ namespace IoTDeviceSimulation.Metrics.Update.Options;
 
 public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUpdateOptions>
 {
-    public const int DefaultSecondsBetweenUpdates = 2;
-    
     private readonly Lazy<IObservable<MetricUpdateOptions>> _internalObservable;
 
-    private int _secondsBetweenUpdates = DefaultSecondsBetweenUpdates;
+    private TimeSpan _secondsBetweenUpdates;
 
-    public MetricUpdateOptionsViewModel()
+    public MetricUpdateOptionsViewModel(IDefaultsProvider<MetricUpdateOptions> metricUpdateOptionsDefaultsProvider)
     {
+        _secondsBetweenUpdates = metricUpdateOptionsDefaultsProvider.Get().IntervalBetweenUpdates;
         _internalObservable = new(() => 
             this
                 .WhenAnyValue(viewModel => viewModel.SecondsBetweenUpdates)
@@ -22,8 +21,8 @@ public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUp
     
     public int SecondsBetweenUpdates
     {
-        get => _secondsBetweenUpdates;
-        set => this.RaiseAndSetIfChanged(ref _secondsBetweenUpdates, value);
+        get => _secondsBetweenUpdates.Seconds;
+        set => this.RaiseAndSetIfChanged(ref _secondsBetweenUpdates, TimeSpan.FromSeconds(value));
     }
 
     public IDisposable Subscribe(IObserver<MetricUpdateOptions> observer) => _internalObservable.Value.Subscribe(observer);

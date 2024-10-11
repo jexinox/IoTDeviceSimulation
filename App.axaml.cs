@@ -5,8 +5,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using IoTDeviceSimulation.MainWindow;
 using IoTDeviceSimulation.Metrics;
-using IoTDeviceSimulation.Metrics.Generation;
 using IoTDeviceSimulation.Metrics.Update;
+using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Options;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,27 +25,7 @@ public class App : Application
         serviceCollection
             .AddSingleton<MainWindowView>()
             .AddSingleton<CancellationTokenSource>()
-            
-            .AddSingleton<MetricUpdateOptionsViewModel>()
-            .AddSingleton<IObservable<MetricUpdateOptions>>(
-                sp => sp.GetRequiredService<MetricUpdateOptionsViewModel>())
-            
-            .AddSingleton<MetricUpdateOptionsProvider>()
-            .AddSingleton<IMetricUpdateOptionsProvider>(
-                sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
-            .AddSingleton<IObserver<MetricUpdateOptions>>(
-                sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
-            
-            .AddSingleton<MetricViewModel>()
-            .AddSingleton<Random>()
-            .AddSingleton<IMetricGenerator, RandomMetricGenerator>()
-            .AddSingleton<IMetricGeneratorProvider, MetricGeneratorProvider>()
-            .AddSingleton<IObserver<Metric>>(sp => sp.GetRequiredService<MetricViewModel>())
-            .AddSingleton<IObservable<Metric>, MetricUpdater>()
-            
-            .AddSingleton<ISubscriber, DefaultSubscriber<MetricUpdateOptions>>()
-            .AddSingleton<ISubscriber, DefaultSubscriber<Metric>>()
-            
+            .AddMetric()
             .AddSingleton<MainWindowViewModel>();
             
         var serviceProvider = serviceCollection.BuildServiceProvider(
