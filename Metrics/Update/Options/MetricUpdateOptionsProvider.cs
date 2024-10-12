@@ -22,8 +22,3 @@ public class MetricUpdateOptionsProvider : IMetricUpdateOptionsProvider, IObserv
 
     public void OnNext(MetricUpdateOptions value) => _internalObserver.Value.OnNext(value);
 }
-
-public interface IMetricUpdateOptionsProvider
-{
-    MetricUpdateOptions Get();
-}

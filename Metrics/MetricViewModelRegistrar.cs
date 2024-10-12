@@ -9,7 +9,7 @@ public static class MetricViewModelRegistrar
     public static IServiceCollection AddMetric(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IDefaultsProvider<Metric>>(_ => new DefaultsProvider<Metric>(new(1)))
+            .AddSingleton<IDefaultsProvider<Metric>>(_ => new AsIsDefaultsProvider<Metric>(new(1)))
             .AddSingleton<MetricViewModel>()
             .AddSingleton<IObserver<Metric>>(sp => sp.GetRequiredService<MetricViewModel>())
             .AddMetricUpdater()

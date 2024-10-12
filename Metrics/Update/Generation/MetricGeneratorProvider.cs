@@ -2,10 +2,13 @@ using System;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
-public class MetricGeneratorProvider : IMetricGeneratorProvider
+public class MetricGeneratorProvider(
+    IMetricGeneratorFactory factory,
+    IMetricGeneratorOptionsProvider optionsProvider) : IMetricGeneratorProvider
 {
     public IMetricGenerator Get()
     {
-        return new RandomMetricGenerator(new Random());
+        var options = optionsProvider.Get();
+        return factory.Create(options);
     }
 }

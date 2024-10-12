@@ -9,7 +9,7 @@ public static class MetricUpdateOptionsRegistrar
     {
         return services
             .AddSingleton<IDefaultsProvider<MetricUpdateOptions>>(
-                _ => new DefaultsProvider<MetricUpdateOptions>(new(2)))
+                _ => new AsIsDefaultsProvider<MetricUpdateOptions>(new(2)))
             .AddSingleton<MetricUpdateOptionsViewModel>()
             .AddSingleton<IObservable<MetricUpdateOptions>>(sp => sp.GetRequiredService<MetricUpdateOptionsViewModel>())
             .AddSingleton<MetricUpdateOptionsProvider>()
