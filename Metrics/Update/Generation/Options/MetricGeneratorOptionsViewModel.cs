@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using ReactiveUI;
 
-namespace IoTDeviceSimulation.Metrics.Update.Generation;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Options;
 
 public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<MetricGeneratorOptions>
 {

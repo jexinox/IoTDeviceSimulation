@@ -1,5 +1,6 @@
 using System;
 using IoTDeviceSimulation.Extensions;
+using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
@@ -14,6 +15,7 @@ public static class MetricGeneratorRegistrar
             .AddSingletonWithImplementedInterfaces<
                 IMetricGeneratorOptionsProvider, IObserver<MetricGeneratorOptions>, MetricGeneratorOptionsProvider>()
             .AddSingleton<Random>()
+            .AddSingleton<IMetricGenerator, RandomMetricGenerator>()
             .AddSingleton<IMetricGeneratorFactory, MetricGeneratorFactory>()
             .AddSingleton<IMetricGeneratorProvider, MetricGeneratorProvider>()
             .AddSingletonWithImplementedInterface<IObservable<MetricGeneratorOptions>, MetricGeneratorOptionsViewModel>()

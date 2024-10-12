@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 
-namespace IoTDeviceSimulation.Metrics.Update.Generation;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Options;
 
 public class MetricGeneratorOptionsProvider : IMetricGeneratorOptionsProvider, IObserver<MetricGeneratorOptions>
 {
