@@ -6,13 +6,20 @@
         x:DataType="mainWindow:MainWindowViewModel">
         
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
-                <TextBox Grid.Column="0" Grid.Row="1" DataContext="{Binding MetricUpdateOptionsViewModel}" Text="{Binding SecondsBetweenUpdates}" />
-                <TextBlock Grid.Column="1" Grid.Row="1" DataContext="{Binding MetricViewModel}" Text="{Binding Value}" />
-                <TextBox Grid.Column="2" Grid.Row="0">Manual mode handle</TextBox>
-                <TextBox Grid.Column="2" Grid.Row="1">Mode selection</TextBox>
-                <Panel Grid.Column="2" Grid.Row="2" DataContext="{Binding MetricGeneratorOptionsViewModel}">
+                <TextBox Grid.Column="0" Grid.Row="1"
+                         DataContext="{Binding MetricUpdateOptionsViewModel}"
+                         Text="{Binding SecondsBetweenUpdates}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" 
+                           DataContext="{Binding MetricViewModel}" 
+                           Text="{Binding Value}" />
+                <TextBox Grid.Column="2" Grid.Row="0">Manual actuator mode handle</TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1">Actuator mode selection</TextBox>
+                <TextBox Grid.Column="2" Grid.Row="2">Auto actuator mode settings</TextBox>
+                <StackPanel Grid.Column="0" Grid.Row="0"
+                            DataContext="{Binding MetricGeneratorOptionsViewModel}">
+                        <Label>Metric generation settings</Label>
                         <ComboBox SelectedItem="{Binding SelectedGenerator}" Width="200" ItemsSource="{Binding AvailableGenerators}" />
-                </Panel>
+                </StackPanel>
                 
         </Grid>
 </Window>
