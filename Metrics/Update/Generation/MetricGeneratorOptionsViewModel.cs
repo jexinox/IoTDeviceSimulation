@@ -8,6 +8,7 @@ namespace IoTDeviceSimulation.Metrics.Update.Generation;
 public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<MetricGeneratorOptions>
 {
     private readonly Lazy<IObservable<MetricGeneratorOptions>> _internalObservable;
+    
     private MetricGeneratorType _generatorType;
 
     public MetricGeneratorOptionsViewModel(IDefaultsProvider<MetricGeneratorOptions> defaultsProvider)

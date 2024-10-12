@@ -1,4 +1,6 @@
 using System;
+using IoTDeviceSimulation.Extensions;
+using IoTDeviceSimulation.Metrics.Update.Generation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation.Metrics.Update.Options;
@@ -10,11 +12,9 @@ public static class MetricUpdateOptionsRegistrar
         return services
             .AddSingleton<IDefaultsProvider<MetricUpdateOptions>>(
                 _ => new AsIsDefaultsProvider<MetricUpdateOptions>(new(2)))
-            .AddSingleton<MetricUpdateOptionsViewModel>()
-            .AddSingleton<IObservable<MetricUpdateOptions>>(sp => sp.GetRequiredService<MetricUpdateOptionsViewModel>())
-            .AddSingleton<MetricUpdateOptionsProvider>()
-            .AddSingleton<IMetricUpdateOptionsProvider>(sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
-            .AddSingleton<IObserver<MetricUpdateOptions>>(sp => sp.GetRequiredService<MetricUpdateOptionsProvider>())
+            .AddSingletonWithImplementedInterface<IObservable<MetricUpdateOptions>, MetricUpdateOptionsViewModel>()
+            .AddSingletonWithImplementedInterfaces<
+                IMetricUpdateOptionsProvider, IObserver<MetricUpdateOptions>, MetricUpdateOptionsProvider>()
             .AddSingleton<ISubscriber, DefaultSubscriber<MetricUpdateOptions>>();
     }
 }

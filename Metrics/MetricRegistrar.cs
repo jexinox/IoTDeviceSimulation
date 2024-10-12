@@ -1,4 +1,5 @@
 using System;
+using IoTDeviceSimulation.Extensions;
 using IoTDeviceSimulation.Metrics.Update;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +12,7 @@ public static class MetricRegistrar
     {
         return services
             .AddSingleton<IDefaultsProvider<Metric>>(_ => new AsIsDefaultsProvider<Metric>(new(1)))
-            .AddSingleton<MetricViewModel>()
-            .AddSingleton<IObserver<Metric>>(sp => sp.GetRequiredService<MetricViewModel>())
+            .AddSingletonWithImplementedInterface<IObserver<Metric>, MetricViewModel>()
             .AddMetricUpdater()
             .AddMetricGenerators()
             .AddSingleton<ISubscriber, DefaultSubscriber<Metric>>();

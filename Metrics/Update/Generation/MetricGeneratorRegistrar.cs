@@ -1,4 +1,5 @@
 using System;
+using IoTDeviceSimulation.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
@@ -10,18 +11,12 @@ public static class MetricGeneratorRegistrar
         return serviceCollection
             .AddSingleton<IDefaultsProvider<MetricGeneratorOptions>>(_ =>
                 new AsIsDefaultsProvider<MetricGeneratorOptions>(new(MetricGeneratorType.Random)))
-            .AddSingleton<MetricGeneratorOptionsProvider>()
-            .AddSingleton<IMetricGeneratorOptionsProvider>(
-                sp => sp.GetRequiredService<MetricGeneratorOptionsProvider>())
-            .AddSingleton<IObserver<MetricGeneratorOptions>>(
-                sp => sp.GetRequiredService<MetricGeneratorOptionsProvider>())
+            .AddSingletonWithImplementedInterfaces<
+                IMetricGeneratorOptionsProvider, IObserver<MetricGeneratorOptions>, MetricGeneratorOptionsProvider>()
             .AddSingleton<Random>()
-            .AddSingleton<RandomMetricGenerator>()
             .AddSingleton<IMetricGeneratorFactory, MetricGeneratorFactory>()
             .AddSingleton<IMetricGeneratorProvider, MetricGeneratorProvider>()
-            .AddSingleton<MetricGeneratorOptionsViewModel>()
-            .AddSingleton<IObservable<MetricGeneratorOptions>>(
-                sp => sp.GetRequiredService<MetricGeneratorOptionsViewModel>())
+            .AddSingletonWithImplementedInterface<IObservable<MetricGeneratorOptions>, MetricGeneratorOptionsViewModel>()
             .AddSingleton<ISubscriber, DefaultSubscriber<MetricGeneratorOptions>>();
     }
 }
