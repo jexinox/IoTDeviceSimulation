@@ -1,13 +1,9 @@
-using System;
 using System.Threading;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using IoTDeviceSimulation.MainWindow;
 using IoTDeviceSimulation.Metrics;
-using IoTDeviceSimulation.Metrics.Update;
-using IoTDeviceSimulation.Metrics.Update.Generation;
-using IoTDeviceSimulation.Metrics.Update.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation;

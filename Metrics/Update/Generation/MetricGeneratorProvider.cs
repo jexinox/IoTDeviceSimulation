@@ -1,5 +1,3 @@
-using System;
-
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
 public class MetricGeneratorProvider(

@@ -25,5 +25,6 @@ public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUp
         set => this.RaiseAndSetIfChanged(ref _secondsBetweenUpdates, TimeSpan.FromSeconds(value));
     }
 
-    public IDisposable Subscribe(IObserver<MetricUpdateOptions> observer) => _internalObservable.Value.Subscribe(observer);
+    public IDisposable Subscribe(IObserver<MetricUpdateOptions> observer) 
+        => _internalObservable.Value.Subscribe(observer);
 }
