@@ -1,7 +1,7 @@
 using IoTDeviceSimulation.Metrics;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Options;
-using IoTDeviceSimulation.Metrics.Update.IntervalOptions;
+using IoTDeviceSimulation.Metrics.Update.Options;
 using ReactiveUI;
 
 namespace IoTDeviceSimulation.MainWindow;

@@ -9,14 +9,14 @@ public class MetricGeneratorFactory(
     IEnumerable<IMetricGenerator> generators) : IMetricGeneratorFactory
 {
     private readonly Lazy<Dictionary<MetricGeneratorType, IMetricGenerator>> _generators = 
-        new(() => GetGeneratorsLookup(generators));
+        new(() => GetGeneratorsDictionary(generators));
 
     public IMetricGenerator Create(MetricGeneratorOptions options)
     {
         return _generators.Value[options.Type];
     }
 
-    private static Dictionary<MetricGeneratorType, IMetricGenerator> GetGeneratorsLookup(
+    private static Dictionary<MetricGeneratorType, IMetricGenerator> GetGeneratorsDictionary(
         IEnumerable<IMetricGenerator> generators)
     {
         return generators
