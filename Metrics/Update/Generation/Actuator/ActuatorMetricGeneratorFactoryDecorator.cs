@@ -25,7 +25,8 @@ public class ActuatorMetricGeneratorFactoryDecorator(
         };
     }
 
-    private class AutoActuatorMetricGeneratorDecorator(AutoActuatorOptions options, IMetricGenerator generator) : IMetricGenerator
+    private class AutoActuatorMetricGeneratorDecorator(
+        AutoActuatorOptions options, IMetricGenerator generator) : IMetricGenerator
     {
         public MetricGeneratorType Type { get; } = generator.Type;
         

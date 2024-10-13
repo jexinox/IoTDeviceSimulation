@@ -1,5 +1,5 @@
 using System;
-using IoTDeviceSimulation.Metrics.Update.Options;
+using IoTDeviceSimulation.Metrics.Update.IntervalOptions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation.Metrics.Update;
