@@ -11,9 +11,13 @@
                          Text="{Binding SecondsBetweenUpdates}" />
                 <TextBlock Grid.Column="1" Grid.Row="1" 
                            DataContext="{Binding MetricViewModel}" 
-                           Text="{Binding Value}" />
+                           Text="{Binding Metric}" />
                 <TextBox Grid.Column="2" Grid.Row="0">Manual actuator mode handle</TextBox>
-                <TextBox Grid.Column="2" Grid.Row="1">Actuator mode selection</TextBox>
+                <StackPanel Grid.Column="2" Grid.Row="1"
+                            DataContext="{Binding ActuatorOptionsViewModel}">
+                        <Label>Actuator mode selection</Label>
+                        <ComboBox SelectedItem="{Binding SelectedMode}" Width="200" ItemsSource="{Binding AvailableModes}" />
+                </StackPanel>
                 <TextBox Grid.Column="2" Grid.Row="2">Auto actuator mode settings</TextBox>
                 <StackPanel Grid.Column="0" Grid.Row="0"
                             DataContext="{Binding MetricGeneratorOptionsViewModel}">

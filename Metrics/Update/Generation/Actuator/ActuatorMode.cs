@@ -1,6 +1,7 @@
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
-public interface IActuatorOptionsProvider
+public enum ActuatorMode
 {
-    IActuatorOptions Get();
+    Auto = 0,
+    Manual = 1,
 }

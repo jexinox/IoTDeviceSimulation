@@ -8,11 +8,10 @@ public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUp
 {
     private readonly Lazy<IObservable<MetricUpdateOptions>> _internalObservable;
 
-    private TimeSpan _secondsBetweenUpdates;
+    private TimeSpan _secondsBetweenUpdates = TimeSpan.FromSeconds(5);
 
-    public MetricUpdateOptionsViewModel(IDefaultsProvider<MetricUpdateOptions> metricUpdateOptionsDefaultsProvider)
+    public MetricUpdateOptionsViewModel()
     {
-        _secondsBetweenUpdates = metricUpdateOptionsDefaultsProvider.Get().IntervalBetweenUpdates;
         _internalObservable = new(() => 
             this
                 .WhenAnyValue(viewModel => viewModel.SecondsBetweenUpdates)

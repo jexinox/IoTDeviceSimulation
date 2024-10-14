@@ -8,18 +8,17 @@ public class MetricViewModel : ReactiveObject, IObserver<Metric>
 {
     private readonly Lazy<IObserver<Metric>> _internalObserver;
 
-    private double _value;
+    private double _metric = 1;
     
-    public MetricViewModel(IDefaultsProvider<Metric> metricDefaultsProvider)
+    public MetricViewModel()
     {
-        _value = metricDefaultsProvider.Get().Value;
-        _internalObserver = new(() => Observer.Create<Metric>(metric => Value = metric.Value));
+        _internalObserver = new(() => Observer.Create<Metric>(metric => Metric = metric.Value));
     }
 
-    public double Value
+    public double Metric
     {
-        get => _value;
-        private set => _value = this.RaiseAndSetIfChanged(ref _value, value);
+        get => _metric;
+        private set => _metric = this.RaiseAndSetIfChanged(ref _metric, value);
     }
 
     public void OnCompleted() => _internalObserver.Value.OnCompleted();

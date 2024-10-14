@@ -36,10 +36,7 @@ public class App : Application
             desktop.Exit += (_, _) => cts.Cancel();
         }
 
-        foreach (var subscriber in serviceProvider.GetServices<ISubscriber>())
-        {
-            subscriber.Subscribe();
-        }
+        serviceProvider.GetRequiredService<MainScenario>().Run();
         
         base.OnFrameworkInitializationCompleted();
     }

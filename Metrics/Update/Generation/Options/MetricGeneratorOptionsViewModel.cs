@@ -9,11 +9,10 @@ public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<Metri
 {
     private readonly Lazy<IObservable<MetricGeneratorOptions>> _internalObservable;
     
-    private MetricGeneratorType _generatorType;
+    private MetricGeneratorType _generatorType = MetricGeneratorType.Random;
 
-    public MetricGeneratorOptionsViewModel(IDefaultsProvider<MetricGeneratorOptions> defaultsProvider)
+    public MetricGeneratorOptionsViewModel()
     {
-        _generatorType = defaultsProvider.Get().Type;
         _internalObservable = new(() => this
             .WhenAnyValue(vm => vm.SelectedGenerator)
             .Select(generatorType => new MetricGeneratorOptions(generatorType)));
