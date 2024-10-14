@@ -3,17 +3,17 @@ using System.Reactive.Linq;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
-public class MetricActuatorOperator(IObservable<IActuatorOptions> options, IActuatorFactory actuatorFactory)
+public class MetricActuatorOperator(IObservable<IActuatorOptions> options, IActuatorFactory factory)
 {
-    public IObservable<Metric> Apply(IObservable<Metric> metrics)
+    public IObservable<IMetricGenerator> Apply(IObservable<IMetricGenerator> generators)
     {
-        return metrics
+        return generators
             .WithLatestFrom(options)
-            .Select(tuple => Actuate(tuple.First, tuple.Second));
+            .Select(tuple => CreateGenerator(tuple.First, tuple.Second));
     }
 
-    private Metric Actuate(Metric metric, IActuatorOptions actuatorOptions)
+    private IMetricGenerator CreateGenerator(IMetricGenerator generator, IActuatorOptions actuatorOptions)
     {
-        return actuatorOptions.Get(actuatorFactory).Actuate(metric);
+        return new ActuatorMetricGeneratorAdapter(actuatorOptions.Get(factory), generator);
     }
 }

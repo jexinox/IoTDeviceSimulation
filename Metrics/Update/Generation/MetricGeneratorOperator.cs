@@ -16,7 +16,7 @@ public class MetricGeneratorOperator
     private static IMetricGenerator CreateNewGeneratorByType(MetricGeneratorType type) =>
         type switch
         {
-            MetricGeneratorType.Random => new RandomMetricGenerator(Random.Shared),
+            MetricGeneratorType.Linear => new LinearMetricGenerator(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 }

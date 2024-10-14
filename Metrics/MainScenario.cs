@@ -17,14 +17,16 @@ public class MainScenario(
     public void Run()
     {
         var metricGenerators = metricGeneratorOperator.Apply(generatorOptionsViewModel);
+        var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
         
-        metricUpdateOptionsViewModel
+        var mainMetricStream = metricUpdateOptionsViewModel
             .Select(options => options.IntervalBetweenUpdates)
             .Select(Observable.Interval)
             .Switch()
-            .WithLatestFrom(metricGenerators)
+            .WithLatestFrom(actuatedMetricsGenerators)
             .Select(tuple => tuple.Second)
-            .Scan(new Metric(), (metric, generator) => generator.Generate(metric))
-            .Subscribe(metricObserver);
+            .Scan(new Metric(), (metric, generator) => generator.Generate(metric));
+        
+        mainMetricStream.Subscribe(metricObserver);
     }
 }

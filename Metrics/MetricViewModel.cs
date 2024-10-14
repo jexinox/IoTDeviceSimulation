@@ -8,7 +8,7 @@ public class MetricViewModel : ReactiveObject, IObserver<Metric>
 {
     private readonly Lazy<IObserver<Metric>> _internalObserver;
 
-    private double _metric = 1;
+    private Metric _metric = new();
     
     public MetricViewModel()
     {
@@ -17,8 +17,8 @@ public class MetricViewModel : ReactiveObject, IObserver<Metric>
 
     public double Metric
     {
-        get => _metric;
-        private set => _metric = this.RaiseAndSetIfChanged(ref _metric, value);
+        get => _metric.Value;
+        private set => _metric = this.RaiseAndSetIfChanged(ref _metric, new(value));
     }
 
     public void OnCompleted() => _internalObserver.Value.OnCompleted();

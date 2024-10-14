@@ -9,7 +9,7 @@ public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<Metri
 {
     private readonly Lazy<IObservable<MetricGeneratorOptions>> _internalObservable;
     
-    private MetricGeneratorType _generatorType = MetricGeneratorType.Random;
+    private MetricGeneratorType _generatorType = MetricGeneratorType.Linear;
 
     public MetricGeneratorOptionsViewModel()
     {
