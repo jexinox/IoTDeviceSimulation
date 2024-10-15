@@ -1,3 +1,5 @@
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
+
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
 public interface IActuatorFactory

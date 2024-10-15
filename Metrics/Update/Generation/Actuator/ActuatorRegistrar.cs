@@ -1,5 +1,6 @@
 using System;
 using IoTDeviceSimulation.Extensions;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
@@ -11,6 +12,8 @@ public static class ActuatorRegistrar
         return services
             .AddSingleton<MetricActuatorOperator>()
             .AddSingleton<IActuatorFactory, ActuatorFactory>()
-            .AddSingletonWithImplementedInterface<IObservable<IActuatorOptions>, ActuatorOptionsViewModel>();
+            .AddSingletonWithImplementedInterface<IObservable<IActuatorOptions>, ActuatorOptionsViewModel>()
+            .AddSingletonWithImplementedInterface<IObservable<AutoActuatorOptions>, AutoActuatorOptionsViewModel>()
+            .AddSingletonWithImplementedInterface<IObservable<ManualActuatorOptions>, ManualActuatorOptionsViewModel>();
     }
 }

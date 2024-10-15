@@ -1,4 +1,4 @@
-namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 
 public interface IActuatorOptions
 {

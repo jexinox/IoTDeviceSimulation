@@ -2,6 +2,7 @@ using System;
 using System.Reactive.Linq;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 using IoTDeviceSimulation.Metrics.Update.Options;
 

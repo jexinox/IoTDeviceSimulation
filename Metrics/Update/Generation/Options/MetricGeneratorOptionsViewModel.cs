@@ -7,15 +7,15 @@ namespace IoTDeviceSimulation.Metrics.Update.Generation.Options;
 
 public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<MetricGeneratorOptions>
 {
-    private readonly Lazy<IObservable<MetricGeneratorOptions>> _internalObservable;
+    private readonly IObservable<MetricGeneratorOptions> _internalObservable;
     
     private MetricGeneratorType _generatorType = MetricGeneratorType.Linear;
 
     public MetricGeneratorOptionsViewModel()
     {
-        _internalObservable = new(() => this
+        _internalObservable = this
             .WhenAnyValue(vm => vm.SelectedGenerator)
-            .Select(generatorType => new MetricGeneratorOptions(generatorType)));
+            .Select(generatorType => new MetricGeneratorOptions(generatorType));
     }
     
     public IEnumerable<MetricGeneratorType> AvailableGenerators { get; } = Enum.GetValues<MetricGeneratorType>();
@@ -27,5 +27,5 @@ public class MetricGeneratorOptionsViewModel : ReactiveObject, IObservable<Metri
     }
     
     public IDisposable Subscribe(IObserver<MetricGeneratorOptions> observer) 
-        => _internalObservable.Value.Subscribe(observer);
+        => _internalObservable.Subscribe(observer);
 }

@@ -1,5 +1,5 @@
 using IoTDeviceSimulation.Metrics;
-using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 using IoTDeviceSimulation.Metrics.Update.Options;
 using ReactiveUI;

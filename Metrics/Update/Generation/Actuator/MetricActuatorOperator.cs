@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Linq;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
@@ -8,7 +9,7 @@ public class MetricActuatorOperator(IObservable<IActuatorOptions> options, IActu
     public IObservable<IMetricGenerator> Apply(IObservable<IMetricGenerator> generators)
     {
         return generators
-            .WithLatestFrom(options)
+            .CombineLatest(options)
             .Select(tuple => CreateGenerator(tuple.First, tuple.Second));
     }
 

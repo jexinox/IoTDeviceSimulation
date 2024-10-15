@@ -5,25 +5,48 @@
         Title="IoTDeviceSimulation"
         x:DataType="mainWindow:MainWindowViewModel">
         
+        <Window.Styles>
+                <Style Selector="StackPanel">
+                        <Setter Property="Spacing" Value="5"/>
+                </Style>
+        </Window.Styles>
+        
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
                 <TextBox Grid.Column="0" Grid.Row="1"
                          DataContext="{Binding MetricUpdateOptionsViewModel}"
                          Text="{Binding SecondsBetweenUpdates}" />
+                
                 <TextBlock Grid.Column="1" Grid.Row="1" 
                            DataContext="{Binding MetricViewModel}" 
                            Text="{Binding Metric, StringFormat=N2}" />
-                <TextBox Grid.Column="2" Grid.Row="0">Manual actuator mode handle</TextBox>
+                
                 <StackPanel Grid.Column="2" Grid.Row="1"
                             DataContext="{Binding ActuatorOptionsViewModel}">
+                        
                         <Label>Actuator mode selection</Label>
-                        <ComboBox SelectedItem="{Binding SelectedMode}" Width="200" ItemsSource="{Binding AvailableModes}" />
-                </StackPanel>
-                <TextBox Grid.Column="2" Grid.Row="2">Auto actuator mode settings</TextBox>
-                <StackPanel Grid.Column="0" Grid.Row="0"
-                            DataContext="{Binding MetricGeneratorOptionsViewModel}">
-                        <Label>Metric generation settings</Label>
-                        <ComboBox SelectedItem="{Binding SelectedGenerator}" Width="200" ItemsSource="{Binding AvailableGenerators}" />
+                        <ComboBox SelectedItem="{Binding SelectedMode}" 
+                                  ItemsSource="{Binding AvailableModes}" />
+                        
+                        <Panel IsVisible="{Binding ShowAutoOptionsViewModel}">
+                                <StackPanel Orientation="Horizontal" DataContext="{Binding AutoOptionsViewModel}" >
+                                        <NumericUpDown Value="{Binding MetricValueLimit, StringFormat=N2}" Minimum="0" Increment="0.1" />
+                                        <NumericUpDown Value="{Binding MetricChange, StringFormat=N2}" Minimum="0" Increment="0.1" />
+                                </StackPanel>
+                        </Panel>
+                        
+                        <Panel IsVisible="{Binding ShowManualOptionsViewModel}">
+                                <StackPanel DataContext="{Binding ManualOptionsViewModel}">
+                                        <Button Command="{Binding ManualHandleCommand}" Content="Trigger manual handle"/>
+                                        <NumericUpDown Value="{Binding MetricChange, StringFormat=N2}" Minimum="0" Increment="0.1" />
+                                </StackPanel>
+                        </Panel>
+                        
                 </StackPanel>
                 
+                <StackPanel Grid.Column="1" Grid.Row="0"
+                            DataContext="{Binding MetricGeneratorOptionsViewModel}">
+                        <Label>Metric generation settings</Label>
+                        <ComboBox SelectedItem="{Binding SelectedGenerator}" ItemsSource="{Binding AvailableGenerators}" />
+                </StackPanel>
         </Grid>
 </Window>

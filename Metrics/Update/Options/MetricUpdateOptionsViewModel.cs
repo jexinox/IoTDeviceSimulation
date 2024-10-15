@@ -6,16 +6,15 @@ namespace IoTDeviceSimulation.Metrics.Update.Options;
 
 public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUpdateOptions>
 {
-    private readonly Lazy<IObservable<MetricUpdateOptions>> _internalObservable;
+    private readonly IObservable<MetricUpdateOptions> _internalObservable;
 
     private TimeSpan _secondsBetweenUpdates = TimeSpan.FromSeconds(5);
 
     public MetricUpdateOptionsViewModel()
     {
-        _internalObservable = new(() => 
-            this
-                .WhenAnyValue(viewModel => viewModel.SecondsBetweenUpdates)
-                .Select(delay => new MetricUpdateOptions(delay)));
+        _internalObservable = this
+            .WhenAnyValue(viewModel => viewModel.SecondsBetweenUpdates)
+            .Select(delay => new MetricUpdateOptions(delay));
     }
     
     public int SecondsBetweenUpdates
@@ -25,5 +24,5 @@ public class MetricUpdateOptionsViewModel : ReactiveObject, IObservable<MetricUp
     }
 
     public IDisposable Subscribe(IObserver<MetricUpdateOptions> observer) 
-        => _internalObservable.Value.Subscribe(observer);
+        => _internalObservable.Subscribe(observer);
 }
