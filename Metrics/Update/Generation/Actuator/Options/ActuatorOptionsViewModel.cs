@@ -17,15 +17,10 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
     {
         AutoOptionsViewModel = autoOptionsViewModel;
         ManualOptionsViewModel = manualOptionsViewModel;
+
         _internalObservable = this
             .WhenAnyValue(x => x.SelectedMode)
-            .Select<ActuatorMode, IObservable<IActuatorOptions>>(mode => mode switch
-            {
-                ActuatorMode.Auto => autoOptionsViewModel,
-                ActuatorMode.Manual => Observable.Return(
-                    new ManualActuatorOptions(manualOptionsViewModel.ManualHandleCommand)),
-                _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
-            })
+            .Select(MapActuatorModeToObservable)
             .Switch();
 
         this
@@ -54,4 +49,15 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
     }
     
     public IDisposable Subscribe(IObserver<IActuatorOptions> observer) => _internalObservable.Subscribe(observer);
+    
+    private IObservable<IActuatorOptions> MapActuatorModeToObservable(ActuatorMode mode)
+    {
+        return mode switch
+        {
+            ActuatorMode.Auto => AutoOptionsViewModel,
+            ActuatorMode.Manual => Observable.Return(
+                new ManualActuatorOptions(ManualOptionsViewModel.ManualHandleCommand)),
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+        };
+    }
 }
