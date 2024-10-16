@@ -12,6 +12,9 @@ public static class MetricGeneratorRegistrar
         return serviceCollection
             .AddSingleton<MetricGeneratorOperator>()
             .AddSingleton<MetricValueLimiterOperator>()
-            .AddSingletonWithImplementedInterface<IObservable<MetricGeneratorOptions>, MetricGeneratorOptionsViewModel>();
+            .AddSingleton<LinearMetricGeneratorOptionsViewModel>()
+            .AddSingleton<LinearRandomMetricGeneratorOptionsViewModel>()
+            .AddSingleton<IMetricGeneratorFactory, MetricGeneratorFactory>()
+            .AddSingletonWithImplementedInterface<IObservable<IMetricGeneratorOptions>, MetricGeneratorOptionsViewModel>();
     }
 }

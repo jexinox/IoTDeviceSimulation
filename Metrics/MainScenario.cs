@@ -10,22 +10,21 @@ namespace IoTDeviceSimulation.Metrics;
 public class MainScenario(
     IObserver<Metric> metricObserver,
     IObservable<MetricUpdateOptions> metricUpdateOptionsViewModel,
-    IObservable<MetricGeneratorOptions> generatorOptionsViewModel,
     MetricGeneratorOperator metricGeneratorOperator,
     MetricActuatorOperator metricActuatorOperator,
     MetricValueLimiterOperator metricValueLimiterOperator)
 {
     public void Run()
     {
-        var metricGenerators = metricGeneratorOperator.Apply(generatorOptionsViewModel);
+        var metricGenerators = metricGeneratorOperator.Apply();
         var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
-        var limitedMetricValue = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
+        var limitedMetricValueGenerators = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
         
         var mainMetricStream = metricUpdateOptionsViewModel
             .Select(options => options.IntervalBetweenUpdates)
             .Select(Observable.Interval)
             .Switch()
-            .WithLatestFrom(actuatedMetricsGenerators)
+            .WithLatestFrom(limitedMetricValueGenerators)
             .Select(tuple => tuple.Second)
             .Scan(new Metric(), (metric, generator) => generator.Generate(metric));
         

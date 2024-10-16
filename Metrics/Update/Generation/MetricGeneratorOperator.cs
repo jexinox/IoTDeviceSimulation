@@ -4,19 +4,15 @@ using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
-public class MetricGeneratorOperator
+public class MetricGeneratorOperator(
+    IObservable<IMetricGeneratorOptions> optionsStream, IMetricGeneratorFactory metricGeneratorFactory)
 {
-    public IObservable<IMetricGenerator> Apply(IObservable<MetricGeneratorOptions> optionsStream)
+    public IObservable<IMetricGenerator> Apply()
     {
         return optionsStream
-            .Select(options => options.Type)
             .Select(CreateNewGeneratorByType);
     }
 
-    private static IMetricGenerator CreateNewGeneratorByType(MetricGeneratorType type) =>
-        type switch
-        {
-            MetricGeneratorType.Linear => new LinearMetricGenerator(),
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-        };
+    private IMetricGenerator CreateNewGeneratorByType(IMetricGeneratorOptions options) =>
+        options.Accept(metricGeneratorFactory);
 }
