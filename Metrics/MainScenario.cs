@@ -2,7 +2,6 @@ using System;
 using System.Reactive.Linq;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
-using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 using IoTDeviceSimulation.Metrics.Update.Options;
 
@@ -13,12 +12,14 @@ public class MainScenario(
     IObservable<MetricUpdateOptions> metricUpdateOptionsViewModel,
     IObservable<MetricGeneratorOptions> generatorOptionsViewModel,
     MetricGeneratorOperator metricGeneratorOperator,
-    MetricActuatorOperator metricActuatorOperator)
+    MetricActuatorOperator metricActuatorOperator,
+    MetricValueLimiterOperator metricValueLimiterOperator)
 {
     public void Run()
     {
         var metricGenerators = metricGeneratorOperator.Apply(generatorOptionsViewModel);
         var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
+        var limitedMetricValue = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
         
         var mainMetricStream = metricUpdateOptionsViewModel
             .Select(options => options.IntervalBetweenUpdates)

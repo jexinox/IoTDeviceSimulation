@@ -1,8 +1,8 @@
-using Avalonia.Controls;
+using SukiUI.Controls;
 
 namespace IoTDeviceSimulation.MainWindow;
 
-public partial class MainWindowView : Window
+public partial class MainWindowView : SukiWindow
 {
     public MainWindowView(MainWindowViewModel viewModel)
     {

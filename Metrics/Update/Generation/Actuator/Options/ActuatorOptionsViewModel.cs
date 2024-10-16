@@ -55,8 +55,7 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
         return mode switch
         {
             ActuatorMode.Auto => AutoOptionsViewModel,
-            ActuatorMode.Manual => Observable.Return(
-                new ManualActuatorOptions(ManualOptionsViewModel.ManualHandleCommand)),
+            ActuatorMode.Manual => ManualOptionsViewModel,
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
         };
     }

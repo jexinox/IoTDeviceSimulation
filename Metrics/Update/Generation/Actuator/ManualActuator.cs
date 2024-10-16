@@ -17,13 +17,13 @@ public class ManualActuator : IActuator
 
     public Metric Actuate(Metric metric)
     {
+        if (!_manualHandleEventRaised)
+        {
+            return metric;
+        }
+        
         lock (lockObject)
         {
-            if (!_manualHandleEventRaised)
-            {
-                return metric;
-            }
-                
             var returnValue = new Metric(metric.Value - _manualHandlesMetricChange);
             _manualHandleEventRaised = false;
             _manualHandlesMetricChange = 0;
