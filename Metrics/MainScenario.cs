@@ -10,13 +10,13 @@ namespace IoTDeviceSimulation.Metrics;
 public class MainScenario(
     IObserver<Metric> metricObserver,
     IObservable<MetricUpdateOptions> metricUpdateOptionsViewModel,
-    MetricGeneratorOperator metricGeneratorOperator,
+    MetricGeneratorsProvider metricGeneratorsProvider,
     MetricActuatorOperator metricActuatorOperator,
     MetricValueLimiterOperator metricValueLimiterOperator)
 {
     public void Run()
     {
-        var metricGenerators = metricGeneratorOperator.Apply();
+        var metricGenerators = metricGeneratorsProvider.Get();
         var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
         var limitedMetricValueGenerators = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
         

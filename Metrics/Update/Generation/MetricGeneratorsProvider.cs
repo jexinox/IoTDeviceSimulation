@@ -4,10 +4,10 @@ using IoTDeviceSimulation.Metrics.Update.Generation.Options;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
-public class MetricGeneratorOperator(
+public class MetricGeneratorsProvider(
     IObservable<IMetricGeneratorOptions> optionsStream, IMetricGeneratorFactory metricGeneratorFactory)
 {
-    public IObservable<IMetricGenerator> Apply()
+    public IObservable<IMetricGenerator> Get()
     {
         return optionsStream
             .Select(CreateNewGeneratorByType);
