@@ -10,6 +10,7 @@ public static class MetricGeneratorRegistrar
     public static IServiceCollection AddMetricGenerators(this IServiceCollection serviceCollection)
     {
         return serviceCollection
+            .AddSingleton<MetricGenerationOperator>()
             .AddSingleton<MetricGeneratorsProvider>()
             .AddSingleton<MetricValueLimiterOperator>()
             .AddSingleton<LinearMetricGeneratorOptionsViewModel>()
