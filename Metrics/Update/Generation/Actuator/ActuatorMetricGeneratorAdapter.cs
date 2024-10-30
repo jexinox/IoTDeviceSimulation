@@ -5,7 +5,7 @@ public class ActuatorMetricGeneratorAdapter(
 {
     public Metric Generate(Metric metric)
     {
-        var generatedMetric = metricGenerator.Generate(metric);
-        return actuator.Actuate(generatedMetric);
+        var actuated = actuator.Actuate(metric);
+        return metricGenerator.Generate(actuated);
     }
 }
