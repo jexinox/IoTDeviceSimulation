@@ -1,5 +1,7 @@
 using System;
 using IoTDeviceSimulation.Extensions;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using Microsoft.Extensions.DependencyInjection;
 

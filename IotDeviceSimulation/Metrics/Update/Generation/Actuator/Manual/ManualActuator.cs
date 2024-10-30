@@ -1,7 +1,6 @@
 using System.Reactive;
-using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 
-namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 
 public class ManualActuator : IActuator
 {

@@ -1,6 +1,4 @@
-using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
-
-namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
 
 public class AutoActuator(AutoActuatorOptions options) : IActuator
 {

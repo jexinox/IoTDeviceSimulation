@@ -3,7 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using ReactiveUI;
 
-namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
+namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 
 public class ManualActuatorOptionsViewModel : ReactiveObject, IObservable<ManualActuatorOptions>
 {

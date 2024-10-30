@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 using ReactiveUI;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
