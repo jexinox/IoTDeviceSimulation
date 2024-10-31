@@ -18,7 +18,6 @@ public class MqttActuatorOptionsViewModel : ReactiveObject, IObservable<MqttActu
                 model => model.Topic,
                 model => model.Host,
                 model => model.Port)
-            .Throttle(TimeSpan.FromMilliseconds(100))
             .Select(tuple => new MqttActuatorOptions(tuple.Item1, tuple.Item2));
     }
 

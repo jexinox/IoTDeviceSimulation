@@ -45,6 +45,9 @@ var subscribeOptions = clientFactory
 
 await mqttClient.SubscribeAsync(subscribeOptions);
 
+Console.WriteLine("Press any key to quit");
+Console.ReadKey();
+
 public record MetricMessage(double Value);
 
 public record ChangeMetricMessage(double Change);

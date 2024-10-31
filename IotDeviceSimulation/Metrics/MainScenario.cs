@@ -1,8 +1,10 @@
 using System;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using IoTDeviceSimulation.Metrics.Publishing;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
@@ -13,15 +15,17 @@ public class MainScenario(
     MetricGenerationOperator metricGenerationOperator,
     MetricGeneratorsProvider metricGeneratorsProvider,
     MetricActuatorOperator metricActuatorOperator,
-    MetricValueLimiterOperator metricValueLimiterOperator)
+    MetricValueLimiterOperator metricValueLimiterOperator,
+    MetricPublishingOperator publisherOperator)
 {
     public async Task Run()
     {
         var metricGenerators = metricGeneratorsProvider.Get();
         var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
         var limitedMetricValueGenerators = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
-        var mainMetricStream = metricGenerationOperator.Apply(limitedMetricValueGenerators);
+        var metricStream = metricGenerationOperator.Apply(limitedMetricValueGenerators);
+        var metricPublishingOperator = publisherOperator.Apply(metricStream);
         
-        await mainMetricStream.SubscribeAsync(metricObserver);
+        await metricPublishingOperator.SubscribeAsync(metricObserver);
     }
 }

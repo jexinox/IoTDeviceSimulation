@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using IoTDeviceSimulation.Extensions;
+using IoTDeviceSimulation.Metrics.Publishing;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 using IoTDeviceSimulation.Metrics.Update.Options;
@@ -17,6 +18,8 @@ public static class MetricRegistrar
             .AddMetricGenerators()
             .AddActuator()
             .AddMetricUpdateOptions()
+            .AddSingleton(new MqttMetricPublisher(new()))
+            .AddSingleton<MetricPublishingOperator>()
             .AddSingleton<MainScenario>();
     }
 }
