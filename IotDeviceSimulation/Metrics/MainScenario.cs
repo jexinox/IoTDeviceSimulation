@@ -1,23 +1,27 @@
 using System;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
 namespace IoTDeviceSimulation.Metrics;
 
 public class MainScenario(
-    IObserver<Metric> metricObserver,
+    IAsyncObserver<Metric> metricObserver,
     MetricGenerationOperator metricGenerationOperator,
     MetricGeneratorsProvider metricGeneratorsProvider,
     MetricActuatorOperator metricActuatorOperator,
     MetricValueLimiterOperator metricValueLimiterOperator)
 {
-    public void Run()
+    public async Task Run()
     {
         var metricGenerators = metricGeneratorsProvider.Get();
         var actuatedMetricsGenerators = metricActuatorOperator.Apply(metricGenerators);
         var limitedMetricValueGenerators = metricValueLimiterOperator.Apply(actuatedMetricsGenerators);
         var mainMetricStream = metricGenerationOperator.Apply(limitedMetricValueGenerators);
         
-        mainMetricStream.Subscribe(metricObserver);
+        await mainMetricStream.SubscribeAsync(metricObserver);
     }
 }

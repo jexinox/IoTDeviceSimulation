@@ -2,6 +2,7 @@ using System;
 using IoTDeviceSimulation.Extensions;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Mqtt;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ public static class ActuatorRegistrar
             .AddSingleton<IActuatorFactory, ActuatorFactory>()
             .AddSingleton<AutoActuatorOptionsViewModel>()
             .AddSingleton<ManualActuatorOptionsViewModel>()
+            .AddSingleton<MqttActuatorOptionsViewModel>()
             .AddSingletonWithImplementedInterface<IObservable<IActuatorOptions>, ActuatorOptionsViewModel>();
     }
 }

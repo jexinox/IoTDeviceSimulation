@@ -1,18 +1,24 @@
 using System;
 using System.Reactive;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using ReactiveUI;
 
 namespace IoTDeviceSimulation.Metrics;
 
-public class MetricViewModel : ReactiveObject, IObserver<Metric>
+public class MetricViewModel : ReactiveObject, IAsyncObserver<Metric>
 {
-    private readonly IObserver<Metric> _internalObserver;
+    private readonly IAsyncObserver<Metric> _internalObserver;
 
     private Metric _metric = new();
     
     public MetricViewModel()
     {
-        _internalObserver = Observer.Create<Metric>(metric => Metric = metric.Value);
+        _internalObserver = AsyncObserver.Create<Metric>(metric =>
+        {
+            Metric = metric.Value;
+            return ValueTask.CompletedTask;
+        });
     }
 
     public double Metric
@@ -21,9 +27,9 @@ public class MetricViewModel : ReactiveObject, IObserver<Metric>
         private set => _metric = this.RaiseAndSetIfChanged(ref _metric, new(value));
     }
 
-    public void OnCompleted() => _internalObserver.OnCompleted();
+    public ValueTask OnCompletedAsync() => _internalObserver.OnCompletedAsync();
 
-    public void OnError(Exception error) => _internalObserver.OnError(error);
+    public ValueTask OnErrorAsync(Exception error) => _internalObserver.OnErrorAsync(error);
 
-    public void OnNext(Metric value) => _internalObserver.OnNext(value);
+    public ValueTask OnNextAsync(Metric value) => _internalObserver.OnNextAsync(value);
 }

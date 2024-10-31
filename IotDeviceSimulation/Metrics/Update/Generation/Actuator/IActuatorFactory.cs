@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Mqtt;
@@ -11,5 +12,5 @@ public interface IActuatorFactory
     
     IActuator GetAutoActuator(AutoActuatorOptions actuatorOptions);
     
-    IActuator GetMqttAutoActuator(MqttAutoActuatorOptions mqttAutoActuatorOptions);
+    Task<IActuator> GetMqttActuator(MqttActuatorOptions mqttActuatorOptions);
 }

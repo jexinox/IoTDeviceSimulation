@@ -108,6 +108,15 @@
                                                 <NumericUpDown Value="{Binding MetricChange, StringFormat=N2}" Increment="0.1" />
                                         </StackPanel>
                                 </Panel>
+                                
+                                <Panel IsVisible="{Binding ShowMqttOptionsViewModel}">
+                                        <StackPanel DataContext="{Binding MqttOptionsViewModel}">
+                                                <TextBox Text="{Binding ClientId}" Watermark="ClientId" />
+                                                <TextBox Text="{Binding Topic}" Watermark="Topic" />
+                                                <TextBox Text="{Binding Host}" Watermark="Host" />
+                                                <TextBox Text="{Binding Port}" Watermark="Port" />
+                                        </StackPanel>
+                                </Panel>
                         </StackPanel>
                 </suki:GlassCard>
         </Grid>

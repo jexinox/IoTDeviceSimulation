@@ -5,7 +5,7 @@ namespace IoTDeviceSimulation.Metrics.Update.Generation;
 
 public class MetricValueLimiterOperator
 {
-    public IObservable<IMetricGenerator> Apply(IObservable<IMetricGenerator> source)
+    public IAsyncObservable<IMetricGenerator> Apply(IAsyncObservable<IMetricGenerator> source)
     {
         return source.Select(metricGenerator => new MetricValueLimiter(metricGenerator));
     }

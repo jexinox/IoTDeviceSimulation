@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using IoTDeviceSimulation.Extensions;
 using IoTDeviceSimulation.Metrics.Update.Generation;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
@@ -12,7 +13,7 @@ public static class MetricRegistrar
     public static IServiceCollection AddMetric(this IServiceCollection services)
     {
         return services
-            .AddSingletonWithImplementedInterface<IObserver<Metric>, MetricViewModel>()
+            .AddSingletonWithImplementedInterface<IAsyncObserver<Metric>, MetricViewModel>()
             .AddMetricGenerators()
             .AddActuator()
             .AddMetricUpdateOptions()

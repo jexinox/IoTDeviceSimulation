@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
+using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Mqtt;
 using ReactiveUI;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
@@ -15,10 +16,12 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
 
     public ActuatorOptionsViewModel(
         AutoActuatorOptionsViewModel autoOptionsViewModel,
-        ManualActuatorOptionsViewModel manualOptionsViewModel)
+        ManualActuatorOptionsViewModel manualOptionsViewModel,
+        MqttActuatorOptionsViewModel mqttOptionsViewModel)
     {
         AutoOptionsViewModel = autoOptionsViewModel;
         ManualOptionsViewModel = manualOptionsViewModel;
+        MqttOptionsViewModel = mqttOptionsViewModel;
 
         _internalObservable = this
             .WhenAnyValue(x => x.SelectedMode)
@@ -31,6 +34,7 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
             {
                 this.RaisePropertyChanged(nameof(ShowManualOptionsViewModel));
                 this.RaisePropertyChanged(nameof(ShowAutoOptionsViewModel));
+                this.RaisePropertyChanged(nameof(ShowMqttOptionsViewModel));
             });
     }
     
@@ -43,6 +47,10 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
     public bool ShowManualOptionsViewModel => SelectedMode == ActuatorMode.Manual;
     
     public ManualActuatorOptionsViewModel ManualOptionsViewModel { get; }
+    
+    public bool ShowMqttOptionsViewModel => SelectedMode == ActuatorMode.Mqtt;
+    
+    public MqttActuatorOptionsViewModel MqttOptionsViewModel { get; }
     
     public ActuatorMode SelectedMode
     {
@@ -58,6 +66,7 @@ public class ActuatorOptionsViewModel : ReactiveObject, IObservable<IActuatorOpt
         {
             ActuatorMode.Auto => AutoOptionsViewModel,
             ActuatorMode.Manual => ManualOptionsViewModel,
+            ActuatorMode.Mqtt => MqttOptionsViewModel,
             _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
         };
     }

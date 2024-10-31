@@ -18,6 +18,7 @@
         <PackageReference Include="MQTTnet" Version="5.0.0.1214-RC" />
         <PackageReference Include="Scrutor" Version="5.0.1" />
         <PackageReference Include="SukiUI" Version="6.0.0-beta8" />
+        <PackageReference Include="System.Reactive.Async" Version="6.0.0-alpha.18" />
     </ItemGroup>
     
 </Project>

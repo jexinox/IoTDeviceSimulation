@@ -1,20 +1,22 @@
 using System;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Options;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
 
 public class MetricActuatorOperator(IObservable<IActuatorOptions> options, IActuatorFactory factory)
 {
-    public IObservable<IMetricGenerator> Apply(IObservable<IMetricGenerator> generators)
+    public IAsyncObservable<IMetricGenerator> Apply(IObservable<IMetricGenerator> generators)
     {
         return generators
-            .CombineLatest(options)
-            .Select(tuple => CreateGenerator(tuple.First, tuple.Second));
+            .ToAsyncObservable()
+            .CombineLatest(options.ToAsyncObservable())
+            .Select(async tuple => await CreateGenerator(tuple.Item1, tuple.Item2));
     }
 
-    private IMetricGenerator CreateGenerator(IMetricGenerator generator, IActuatorOptions actuatorOptions)
+    private async ValueTask<IMetricGenerator> CreateGenerator(IMetricGenerator generator, IActuatorOptions actuatorOptions)
     {
-        return new ActuatorMetricGeneratorAdapter(actuatorOptions.Get(factory), generator);
+        return new ActuatorMetricGeneratorAdapter(await actuatorOptions.Get(factory), generator);
     }
 }
