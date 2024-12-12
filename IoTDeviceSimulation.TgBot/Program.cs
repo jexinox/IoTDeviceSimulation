@@ -50,6 +50,7 @@ bot.OnMessage += async (message, type) =>
 
         if (!double.TryParse(messageParts[1], out var metricChange))
         {
+            await bot.SendMessage(message.Chat.Id, "Please enter a valid metric change.");
             return;
         }
         

@@ -112,10 +112,7 @@
                                 
                                 <Panel IsVisible="{Binding ShowMqttOptionsViewModel}">
                                         <StackPanel DataContext="{Binding MqttOptionsViewModel}">
-                                                <TextBox Text="{Binding ClientId}" Watermark="ClientId" />
                                                 <TextBox Text="{Binding Topic}" Watermark="Topic" />
-                                                <TextBox Text="{Binding Host}" Watermark="Host" />
-                                                <TextBox Text="{Binding Port}" Watermark="Port" />
                                         </StackPanel>
                                 </Panel>
                         </StackPanel>

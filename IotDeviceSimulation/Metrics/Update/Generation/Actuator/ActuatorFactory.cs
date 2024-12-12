@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Auto;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Manual;
 using IoTDeviceSimulation.Metrics.Update.Generation.Actuator.Mqtt;
+using IoTDeviceSimulation.Mqtt;
 using MQTTnet;
 
 namespace IoTDeviceSimulation.Metrics.Update.Generation.Actuator;
@@ -23,14 +24,7 @@ public class ActuatorFactory : IActuatorFactory
 
     public async Task<IActuator> GetMqttActuator(MqttActuatorOptions mqttActuatorOptions)
     {
-        Console.WriteLine(mqttActuatorOptions);
-        var clientFactory = new MqttClientFactory();
-        var clientOptions = clientFactory
-            .CreateClientOptionsBuilder()
-            .WithClientId(mqttActuatorOptions.ClientId)
-            .WithTcpServer(mqttActuatorOptions.Host, mqttActuatorOptions.Port)
-            .Build();
-        var client = clientFactory.CreateMqttClient();
+        var client = await MqttSingleton.Instance.Value;
         var actuator = new MqttActuator();
         client.ApplicationMessageReceivedAsync += args =>
         {
@@ -46,7 +40,6 @@ public class ActuatorFactory : IActuatorFactory
             actuator.OnMetricChangesRecieved(message);
             return Task.CompletedTask;
         };
-        await client.ConnectAsync(clientOptions);
         await client.SubscribeAsync(mqttActuatorOptions.Topic);
         return actuator;
     }

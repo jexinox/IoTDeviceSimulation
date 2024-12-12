@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using Google.Cloud.Firestore;
 using IoTDeviceSimulation.Extensions;
 using IoTDeviceSimulation.Metrics.Publishing;
 using IoTDeviceSimulation.Metrics.Update.Generation;
@@ -19,6 +19,8 @@ public static class MetricRegistrar
             .AddActuator()
             .AddMetricUpdateOptions()
             .AddSingleton(new MqttMetricPublisher(new()))
+            .AddSingleton<FirestoreDb>(_ => FirestoreDb.Create(Constants.FirestoreDbProject))
+            .AddSingleton<FirestoreMetricPublisher>()
             .AddSingleton<MetricPublishingOperator>()
             .AddSingleton<MainScenario>();
     }

@@ -13,36 +13,14 @@ public class MqttActuatorOptionsViewModel : ReactiveObject, IObservable<MqttActu
     public MqttActuatorOptionsViewModel()
     {
         _internalObservable = this
-            .WhenAnyValue(
-                model => model.ClientId,
-                model => model.Topic,
-                model => model.Host,
-                model => model.Port)
-            .Select(tuple => new MqttActuatorOptions(tuple.Item1, tuple.Item2));
+            .WhenAnyValue(model => model.Topic)
+            .Select(topic => new MqttActuatorOptions(topic));
     }
-
-    public string ClientId
-    {
-        get => options.ClientId;
-        set => this.RaiseAndSetIfChanged(ref options, options with { ClientId = value });
-    }
-
+    
     public string Topic
     {
         get => options.Topic;
-        set => this.RaiseAndSetIfChanged(ref options, options with { Topic = value });
-    }
-    
-    public string Host
-    {
-        get => options.Host;
-        set => this.RaiseAndSetIfChanged(ref options, options with { Host = value });
-    }
-    
-    public int Port
-    {
-        get => options.Port;
-        set => this.RaiseAndSetIfChanged(ref options, options with { Port = value });
+        set => this.RaiseAndSetIfChanged(ref options, new(Topic: value));
     }
     
     public IDisposable Subscribe(IObserver<MqttActuatorOptions> observer) => _internalObservable.Subscribe(observer);
